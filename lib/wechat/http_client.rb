@@ -8,8 +8,9 @@ module Wechat
 
     def initialize(base, network_setting)
       @base = base
+      timeout_value = network_setting.timeout.to_i
       @httprb = if HTTP::VERSION.to_i >= 4
-                  HTTP.timeout(write: network_setting.timeout, connect: network_setting.timeout, read: network_setting.timeout)
+                  HTTP.timeout(write: timeout_value, connect: timeout_value, read: timeout_value)
                 else
                   HTTP.timeout(:global, write: network_setting.timeout, connect: network_setting.timeout, read: network_setting.timeout)
                 end
